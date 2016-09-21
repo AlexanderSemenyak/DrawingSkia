@@ -8,11 +8,7 @@
 //
 using System;
 using System.Drawing.Drawing2D;
-#if MONOMAC
-using CoreGraphics;
-#else
-using CoreGraphics;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing {
 
@@ -59,6 +55,7 @@ namespace System.Drawing {
 
 		internal override void Setup (Graphics graphics, bool fill)
 		{
+			#if TODO
 			if (graphics.LastBrush == this && !isModified)
 				return;
 
@@ -75,6 +72,7 @@ namespace System.Drawing {
 
 			// I am setting this to be used for Text coloring in DrawString
 			graphics.lastBrushColor = color;
+			#endif
 		}
 	}
 }

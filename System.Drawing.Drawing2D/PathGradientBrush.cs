@@ -9,16 +9,7 @@
 
 using System.Drawing;
 using System.ComponentModel;
-
-#if MONOMAC
-using AppKit;
-using Foundation;
-using CoreGraphics;
-#else
-using UIKit;
-using Foundation;
-using CoreGraphics;
-#endif
+using SkiaSharp;
 
 
 namespace System.Drawing.Drawing2D {
@@ -80,9 +71,10 @@ namespace System.Drawing.Drawing2D {
 				pathPoints = temps;
 			}
 
-
+			#if TODO
 			rectangle = GeomUtilities.PolygonBoundingBox (pathPoints);
 			centerPoint = GeomUtilities.PolygonCentroid (pathPoints);
+			#endif
 			wrapMode = WrapMode.Clamp;
 
 			// verify the winding of the polygon so that we cen calculate the 
@@ -135,9 +127,10 @@ namespace System.Drawing.Drawing2D {
 				pathPoints = temps;
 			}
 
-
+			#if TODO
 			rectangle = GeomUtilities.PolygonBoundingBox (pathPoints);
 			centerPoint = GeomUtilities.PolygonCentroid (pathPoints);
+			#endif
 			this.wrapMode = wrapMode;
 
 			// verify the winding of the polygon so that we cen calculate the 
@@ -265,7 +258,10 @@ namespace System.Drawing.Drawing2D {
 				{
 					throw new ArgumentNullException("Transform");
 				}
-				gradientTransform = value.Clone();
+
+				//gradientTransform = value.Clone();
+				throw new NotImplementedException
+				();
 				changed = true;
 			}
 		}
@@ -296,13 +292,15 @@ namespace System.Drawing.Drawing2D {
 			{
 				throw new ArgumentNullException("matrix");
 			}
-			gradientTransform.Multiply(matrix, order);
+			//gradientTransform.Multiply(matrix, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 
 		public void ResetTransform()
 		{
-			gradientTransform.Reset();
+			//gradientTransform.Reset();
+			throw new NotImplementedException ();
 			changed = true;
 		}
 
@@ -313,7 +311,8 @@ namespace System.Drawing.Drawing2D {
 
 		public void RotateTransform(float angle, MatrixOrder order)
 		{
-			gradientTransform.Rotate(angle, order);
+			//gradientTransform.Rotate(angle, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 
@@ -324,7 +323,8 @@ namespace System.Drawing.Drawing2D {
 
 		public void ScaleTransform(float sx, float sy, MatrixOrder order)
 		{
-			gradientTransform.Scale(sx, sy, order);
+			//gradientTransform.Scale(sx, sy, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 
@@ -335,7 +335,8 @@ namespace System.Drawing.Drawing2D {
 
 		public void TranslateTransform(float dx, float dy, MatrixOrder order)
 		{
-			gradientTransform.Translate(dx, dy, order);
+			//gradientTransform.Translate(dx, dy, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 
@@ -381,7 +382,7 @@ namespace System.Drawing.Drawing2D {
 		// http://developer.apple.com/library/mac/#documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_shadings/dq_shadings.html#//apple_ref/doc/uid/TP30001066-CH207-BBCECJBF
 		internal override void Setup (Graphics graphics, bool fill)
 		{
-
+#if TODO
 			CGContext context = graphics.context;
 
 			// if fill is false then we are being called from a Pen stroke so
@@ -423,9 +424,12 @@ namespace System.Drawing.Drawing2D {
 			graphics.LastPen = null;
 			// I am setting this to be used for Text coloring in DrawString
 			graphics.lastBrushColor = surroundColors[surroundColors.Length - 1];
+#else
+			throw new NotImplementedException ();
+			#endif
 		}
 
-
+		#if TODO
 		internal void RasterizePolygon(CGContext context, PointF center, PointF[] pathPoints,
 		                                      Color[] surroundColors, Color centerColor)
 		{
@@ -703,6 +707,6 @@ namespace System.Drawing.Drawing2D {
         	colorOutput [2] = resBlue / 255f; 
         	colorOutput [3] = resAlpha / 255f;
 		}
-
+		#endif
 	}
 }

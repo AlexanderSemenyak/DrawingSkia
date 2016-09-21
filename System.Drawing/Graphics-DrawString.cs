@@ -1,16 +1,5 @@
 using System;
-
-#if MONOMAC
-using CoreGraphics;
-using AppKit;
-using Foundation;
-using CoreText;
-#else
-using CoreGraphics;
-using UIKit;
-using Foundation;
-using CoreText;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing
 {
@@ -74,7 +63,7 @@ namespace System.Drawing
 			//			var endPos = context.TextPosition;
 			//
 			//			var measure = new SizeF(endPos.X - startPos.X, font.nativeFont.CapHeightMetric);
-
+#if TODO
 			var atts = buildAttributedString(textg, font);
 
 			var measure = SizeF.Empty;
@@ -103,6 +92,11 @@ namespace System.Drawing
 			}
 
 			return measure;
+#else
+			throw new NotImplementedException ();
+#endif
+
+
 		}
 
 		public SizeF MeasureString (string text, Font font, SizeF layoutArea, StringFormat stringFormat)
@@ -159,6 +153,7 @@ namespace System.Drawing
 			// TODO: Take into consideration units
 
 			// Not sure we need the Save and Restore around this yet.
+#if TODO
 			context.SaveState();
 
 			// TextMatrix is not part of the Graphics State and Restore 
@@ -254,9 +249,9 @@ namespace System.Drawing
 					var line = typesetter.GetLine (new NSRange(start, count));
 
 					// Create and initialize some values from the bounds.
-					nfloat ascent;
-					nfloat descent;
-					nfloat leading;
+					float ascent;
+					float descent;
+					float leading;
 					line.GetTypographicBounds (out ascent, out descent, out leading);
 					verticalOffset += (float)Math.Ceiling (ascent + descent + leading + 1); // +1 matches best to CTFramesetter's behavior  
 					line.Dispose ();
@@ -352,11 +347,15 @@ namespace System.Drawing
 
 			context.TextMatrix = saveMatrix;
 			context.RestoreState();
+#else
+			throw new NotImplementedException ();
+#endif
 
 
 
 		}	
 
+		#if TODO
 		private NSMutableAttributedString buildAttributedString(string text, Font font, StringFormat format = null, 
 			Color? fontColor=null) 
 		{
@@ -432,7 +431,7 @@ namespace System.Drawing
 			return atts;
 
 		}
-
+#endif
 
 	}
 }

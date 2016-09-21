@@ -40,23 +40,16 @@ using System.ComponentModel;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
-
-#if MONOMAC
-using CoreGraphics;
-using Foundation;
-using AppKit;
-#else
-using CoreGraphics;
-using UIKit;
-using Foundation;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing {
 	
 	[Serializable]
 	[TypeConverter (typeof (ImageConverter))]
 	public abstract class Image : MarshalByRefObject, IDisposable , ICloneable, ISerializable {
+		void ISerializable.GetObjectData (SerializationInfo si, StreamingContext context) { }
 
+#if TODO
 		// This is obtained from a Bitmap
 		// Right now that is all we support
 		internal CGImage NativeCGImage;
@@ -184,6 +177,41 @@ namespace System.Drawing {
 			var bitmap = new Bitmap (this);
 			return bitmap;
 		}
+#else 
+
+		public int Height {
+			get {
+				throw new NotImplementedException ();
+			}
+		}
+
+		public PixelFormat PixelFormat {
+			get {
+				throw new NotImplementedException ();
+			}
+		}
+
+		public ImageFormat RawFormat {
+			get {
+
+				throw new NotImplementedException ();
+			}
+		}
+
+		[DefaultValue (false)]
+		[Browsable (false)]
+		[DesignerSerializationVisibility (DesignerSerializationVisibility.Hidden)]
+		public int Width {
+			get {
+				throw new NotImplementedException ();
+			}
+		}
+		#endif
+
+		public object Clone ()
+		{
+			throw new NotImplementedException ();
+		}
 
 		public void Dispose ()
 		{
@@ -196,7 +224,7 @@ namespace System.Drawing {
 		{
 			// TODO
 		}
-		
+		#if TODO
 		public static Image FromStream (Stream stream)
 		{
 			if (stream == null)
@@ -225,7 +253,7 @@ namespace System.Drawing {
 		{
 			return new Bitmap(filename);
 		}
-		
+
 		void ISerializable.GetObjectData (SerializationInfo si, StreamingContext context)
 		{
 			using (MemoryStream ms = new MemoryStream ()) {
@@ -332,6 +360,6 @@ namespace System.Drawing {
 		{
 			return (((int)pixfmt >> 8) & 0xff) / 8;
 		}
-
+		#endif
 	}
 }

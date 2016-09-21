@@ -1,12 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-
-#if MONOMAC
-using CoreGraphics;
-#else
-using CoreGraphics;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing
 {
@@ -366,7 +361,7 @@ namespace System.Drawing
 			
 			return sign * y;
 		}
-
+		#if TODO
 		/// <summary>
 		/// This method initializes the new CGAffineTransform such that it represents the geometric transform that maps the rectangle 
 		/// specified by the rect parameter to the parallelogram defined by the three points in the plgpts parameter. 
@@ -710,10 +705,8 @@ namespace System.Drawing
 			return area / 2;
 		}
 
-
-
 		#endregion
-
+		#endif
 	}
 }
 

@@ -29,18 +29,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-
-#if MONOMAC
-using CoreGraphics;
-using AppKit;
-using Foundation;
-using CoreText;
-#else
-using CoreGraphics;
-using UIKit;
-using Foundation;
-using CoreText;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing.Drawing2D 
 {
@@ -88,6 +77,7 @@ namespace System.Drawing.Drawing2D
 			if (s == null || s.Length == 0)
 				return;
 
+			#if TODO
 			var attributedString = buildAttributedString(s, font, brush);
 
 			// Work out the geometry
@@ -258,9 +248,9 @@ namespace System.Drawing.Drawing2D
 				line.Dispose();
 
 			}
-
+			#endif
 		}	
-
+		#if TODO
 		private static NSMutableAttributedString buildAttributedString(string text, Font font, 
 		                                                        Color? fontColor=null) 
 		{
@@ -334,6 +324,7 @@ namespace System.Drawing.Drawing2D
 			return atts;
 
 		}
+#endif
 	}
 }
 

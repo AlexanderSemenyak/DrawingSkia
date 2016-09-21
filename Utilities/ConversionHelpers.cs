@@ -1,12 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-
-#if MONOMAC
-using CoreGraphics;
-#else
-using CoreGraphics;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing
 {
@@ -17,7 +12,7 @@ namespace System.Drawing
 		internal const float MS_DPI = 96;
 
 		internal static float F_PI = (float)Math.PI;
-
+#if TODO
 		internal static CGSize ToCGSize (this SizeF size)
 		{
 #if XM45
@@ -80,12 +75,12 @@ namespace System.Drawing
 			return (RectangleF)rect;
 #endif
 		}
-		
+
 		internal static CGColor ToCGColor (this Color color)
 		{				
 			return new CGColor(color.R / 255f, color.G/255f, color.B/255f, color.A/255f );
 		}
-		
+#endif		
 		internal static float ToRadians (this float degrees) 
 		{
 			return degrees * F_PI / 180f;
@@ -188,7 +183,7 @@ namespace System.Drawing
 				return nSrc;
 			}
 		}
-
+	#if TODO
 		internal static void GraphicsUnitConversion (GraphicsUnit from, GraphicsUnit to, float dpiX, float dpiY, ref RectangleF srcRect)
 		{
 			srcRect.X = GraphicsUnitConversion (from, to, dpiX, srcRect.X);
@@ -271,7 +266,7 @@ namespace System.Drawing
 			elements[3] = color.A / 255f;
 			return elements;
 		}
-
+	#endif
 		internal static PointF[] ToFloat (this Point[] points)
 		{
 			if (points == null)
@@ -286,7 +281,7 @@ namespace System.Drawing
 			return pointfs;
 		}
 
-
+	#if TODO
 		//
 		// Idea came from http://www.modejong.com/blog/post3_pixel_binary_layout_w_premultiplied_alpha/index.html
 		// where it says:
@@ -8566,7 +8561,7 @@ namespace System.Drawing
 			sTablesInitialized = true;
 		}
 
-
+	#endif
 	}
 }
 

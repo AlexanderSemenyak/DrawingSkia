@@ -52,11 +52,15 @@ namespace System.Drawing.Text
 
 		protected virtual void Dispose (bool disposing)
 		{
+			#if TODO
 			if (nativeFontCollection != null) 
 			{
 				nativeFontCollection.Dispose();
 				nativeFontCollection = null;
 			}
+			#else
+			throw new NotImplementedException ();
+			#endif
 		}
 
 		// properties
@@ -65,6 +69,7 @@ namespace System.Drawing.Text
 			get { 
 				var families = new List<FontFamily> ();
 
+				#if TODO
 				var familyNames = NativeFontFamilies ();
 
 				// Lets sort the family names
@@ -79,6 +84,9 @@ namespace System.Drawing.Text
 				}
            
 				return families.ToArray ();;               
+				#else
+				throw new NotImplementedException ();
+				#endif
 			}
 		}
 

@@ -1,4 +1,4 @@
-//
+﻿//
 // System.Drawing.FontFamily-CoreText.cs
 //
 // Author:
@@ -34,8 +34,6 @@ namespace System.Drawing
 {
 	public sealed partial class FontFamily
 	{
-#if TODO
-
 		const string MONO_SPACE = "Courier New";
 		// Wikipedia - On October 16, 2007, Apple announced on their website that the next version of their flagship operating system, 
 		// Mac OS X v10.5 ("Leopard"), would include Microsoft Sans Serif.
@@ -50,20 +48,37 @@ namespace System.Drawing
 			CellDescent,
 			LineSpacing
 		}
+#if TODO
 		CTFontDescriptor nativeFontDescriptor;
 
 		internal CTFontDescriptor NativeDescriptor
 		{
 			get { return nativeFontDescriptor; }
 		}
+#endif
 
 		private void CreateNativeFontFamily(string name, bool createDefaultIfNotExists)
 		{
 			CreateNativeFontFamily (name, null, createDefaultIfNotExists);
 		}
 
-		private void CreateNativeFontFamily(string name, FontCollection fontCollection, bool createDefaultIfNotExists)
+
+		private void CreateNativeFontFamily (string name, FontCollection fontCollection, bool createDefaultIfNotExists)
 		{
+		
+		}
+
+		private bool NativeStyleAvailable (FontStyle style)
+		{
+			throw new NotImplementedException ();
+		}
+
+		private int GetNativeMetric (Metric metric, FontStyle style)
+		{
+			throw new NotImplementedException ();
+		}
+
+		#if TODO
 			if (fontCollection != null) 
 			{
 				if (fontCollection.nativeFontDescriptors.ContainsKey (name))

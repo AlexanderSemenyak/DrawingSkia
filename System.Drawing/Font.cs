@@ -90,7 +90,12 @@ namespace System.Drawing
 			this.gdiVerticalFont = gdiVerticalFont;
 			this.gdiCharSet = gdiCharSet;
 
+#if TODO
 			CreateNativeFont (familyName, emSize, style, unit, gdiCharSet, gdiVerticalFont);
+#else
+			throw new NotImplementedException ();
+#endif
+
 		}
 
 		#region ISerializable implementation
@@ -121,10 +126,12 @@ namespace System.Drawing
 		internal void Dispose (bool disposing)
 		{
 			if (disposing){
+				#if TODO
 				if (nativeFont != null){
 					nativeFont.Dispose ();
 					nativeFont = null;
 				}
+				#endif
 			}
 		}
 		

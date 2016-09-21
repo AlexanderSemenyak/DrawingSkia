@@ -27,17 +27,13 @@
 //
 using System;
 using System.Collections.Generic;
-
-#if MONOMAC
-using CoreText;
-#else
-using CoreText;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing.Text 
 {
 	public abstract partial class FontCollection
 	{
+		#if TODO
 		internal CTFontCollection nativeFontCollection = null;
 		internal Dictionary<string, CTFontDescriptor> nativeFontDescriptors = null;
 
@@ -68,7 +64,7 @@ namespace System.Drawing.Text
 
 			return fontFamilies;
 		}
-
+		#endif
 	}
 }
 

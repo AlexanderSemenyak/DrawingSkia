@@ -1,4 +1,4 @@
-//
+﻿//
 // System.Drawing.Font-CoreText.cs
 //
 // Author:
@@ -32,50 +32,12 @@ namespace System.Drawing
 {
 	public partial class Font
 	{
-		#if TODO
-		internal CTFont nativeFont;
 		bool bold = false;
 		bool italic = false;
-
-
 		private void CreateNativeFont (FontFamily familyName, float emSize, FontStyle style,
 			GraphicsUnit unit, byte gdiCharSet, bool  gdiVerticalFont )
 		{
-			// convert to 96 Dpi to be consistent with Windows
-			var dpiSize = emSize * dpiScale;
-
-			try 
-			{
-				nativeFont = new CTFont(familyName.NativeDescriptor,dpiSize);
-			}
-			catch
-			{
-				nativeFont = new CTFont("Helvetica",dpiSize);
-			}
-
-			CTFontSymbolicTraits tMask = CTFontSymbolicTraits.None;
-
-			if ((style & FontStyle.Bold) == FontStyle.Bold)
-				tMask |= CTFontSymbolicTraits.Bold;
-			if ((style & FontStyle.Italic) == FontStyle.Italic)
-				tMask |= CTFontSymbolicTraits.Italic;
-			strikeThrough = (style & FontStyle.Strikeout) == FontStyle.Strikeout;
-			underLine = (style & FontStyle.Underline) == FontStyle.Underline;
-
-			var nativeFont2 = nativeFont.WithSymbolicTraits(dpiSize,tMask,tMask);
-
-			if (nativeFont2 != null)
-				nativeFont = nativeFont2;
-
-			bold = (nativeFont.SymbolicTraits & CTFontSymbolicTraits.Bold) == CTFontSymbolicTraits.Bold; 
-			italic = (nativeFont.SymbolicTraits & CTFontSymbolicTraits.Italic) == CTFontSymbolicTraits.Italic;
-			sizeInPoints = emSize;
-			this.unit = unit;
-
-			// FIXME
-			// I do not like the hard coded 72 but am just trying to boot strap the Font class right now
-			size = ConversionHelpers.GraphicsUnitConversion(GraphicsUnit.Point, unit, 72.0f, sizeInPoints); 
-
+			throw new NotImplementedException ();
 		}
 
 		/**
@@ -98,19 +60,9 @@ namespace System.Drawing
 		 **/
 		private float GetNativeheight()
 		{
-			// Documentation for Accessing Font Metrics
-			// http://developer.apple.com/library/ios/#documentation/StringsTextFonts/Conceptual/CoreText_Programming/Operations/Operations.html
-			float lineHeight = 0;
-			lineHeight += (float)nativeFont.AscentMetric;
-			lineHeight += (float)nativeFont.DescentMetric;
-			lineHeight += (float)nativeFont.LeadingMetric;
-
-
-			// Still have not figured this out yet!!!!
-			return lineHeight;
-
+			throw new NotImplementedException ();
 		}
-		#endif
+
 	}
 }
 

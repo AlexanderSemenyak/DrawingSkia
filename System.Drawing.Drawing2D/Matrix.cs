@@ -35,16 +35,13 @@
 
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
-#if MONOMAC
-using CoreGraphics;
-#else
-using CoreGraphics;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing.Drawing2D
 {
 	public sealed class Matrix : MarshalByRefObject, IDisposable
 	{
+		#if TODO
 		internal CGAffineTransform transform;
 		
 		public Matrix ()
@@ -155,11 +152,11 @@ namespace System.Drawing.Drawing2D
 			return copy;
 		}
 		
-		
+		#endif
 		public void Dispose ()
 		{
 		}			
-		
+		#if TODO
 		public override bool Equals (object obj)
 		{
 			Matrix m = obj as Matrix;
@@ -370,5 +367,6 @@ namespace System.Drawing.Drawing2D
 		{
 			TransformVectors (pts);
 		}
+		#endif
 	}
 }

@@ -28,16 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
-#if MONOMAC
-using CoreText;
-using Foundation;
-using CoreGraphics;
-#else
-using CoreText;
-using Foundation;
-using CoreGraphics;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing.Text
 {
@@ -46,6 +37,7 @@ namespace System.Drawing.Text
 
 		void LoadFontFile (string fileName)
 		{
+			#if TODO
 			CTFont nativeFont;
 			var dpiSize = 0;
 			var ext = Path.GetExtension(fileName);
@@ -104,6 +96,9 @@ namespace System.Drawing.Text
 					throw new System.IO.FileNotFoundException (fileName);
 				}
 			}
+			#else
+			throw new NotImplementedException ();
+			#endif
 		}
 	}
 }

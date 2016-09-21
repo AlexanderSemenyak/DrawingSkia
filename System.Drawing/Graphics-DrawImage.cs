@@ -1,26 +1,12 @@
 using System;
 using System.Drawing.Imaging;
-
-
-#if MONOMAC
-using CoreGraphics;
-using Foundation;
-using AppKit;
-using ImageIO;
-using CoreImage;
-#else
-using CoreGraphics;
-using UIKit;
-using Foundation;
-using ImageIO;
-using CoreImage;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing
 {
 	public partial class Graphics {
 		public delegate bool DrawImageAbort (IntPtr callbackData);
-
+#if TODO
 		private CIContext ciContext;
 
 		private void DrawImage(RectangleF rect, CGImage image, CGAffineTransform transform)
@@ -794,6 +780,7 @@ namespace System.Drawing
 				ciContext = CIContext.FromContext (context);
 #endif
 		}
+	#endif
 	}
 }
 

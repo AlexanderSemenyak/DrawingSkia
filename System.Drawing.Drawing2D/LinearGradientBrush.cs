@@ -10,16 +10,8 @@ using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Drawing;
+using SkiaSharp;
 
-#if MONOMAC
-using AppKit;
-using Foundation;
-using CoreGraphics;
-#else
-using UIKit;
-using Foundation;
-using CoreGraphics;
-#endif
 
 namespace System.Drawing.Drawing2D 
 {
@@ -170,13 +162,15 @@ namespace System.Drawing.Drawing2D
 			{
 				throw new ArgumentNullException("matrix");
 			}
-			gradientTransform.Multiply(matrix, order);
+			//gradientTransform.Multiply(matrix, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 		
 		public void ResetTransform()
 		{
-			gradientTransform.Reset();
+			//gradientTransform.Reset();
+			throw new NotImplementedException ();
 			changed = true;
 		}
 		
@@ -187,7 +181,8 @@ namespace System.Drawing.Drawing2D
 		
 		public void RotateTransform(float angle, MatrixOrder order)
 		{
-			gradientTransform.Rotate(angle, order);
+			//gradientTransform.Rotate(angle, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 		
@@ -198,7 +193,8 @@ namespace System.Drawing.Drawing2D
 		
 		public void ScaleTransform(float sx, float sy, MatrixOrder order)
 		{
-			gradientTransform.Scale(sx, sy, order);
+			//gradientTransform.Scale(sx, sy, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 
@@ -209,7 +205,8 @@ namespace System.Drawing.Drawing2D
 		
 		public void TranslateTransform(float dx, float dy, MatrixOrder order)
 		{
-			gradientTransform.Translate(dx, dy, order);
+			//gradientTransform.Translate(dx, dy, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 
@@ -338,7 +335,8 @@ namespace System.Drawing.Drawing2D
 				{
 					throw new ArgumentNullException("Transform");
 				}
-				gradientTransform = value.Clone();
+				//gradientTransform = value.Clone();
+				throw new NotImplementedException ();
 				changed = true;
 			}
 		}
@@ -361,25 +359,25 @@ namespace System.Drawing.Drawing2D
 
 		float[] positions;
 		float[] factors;
-		unsafe public void GradientLerp (nfloat *data, nfloat *outData) 
+		unsafe public void GradientLerp (float *data, float *outData) 
 		{
-			nfloat lerpDist = *(nfloat*)data;
+			float lerpDist = *(float*)data;
 		
-			nint i = 0;
+			int i = 0;
 
-			nint numPositions = positions.Length;
+			int numPositions = positions.Length;
 
 			// Make sure we put the linear distance value back into the 0.0 .. 1.0 range
 			// depending on the wrap mode
 			if (wrapMode == WrapMode.Tile || wrapMode == WrapMode.TileFlipY)
 			{
 				// Repeat
-				lerpDist = lerpDist - (nfloat)Math.Floor(lerpDist);
+				lerpDist = lerpDist - (float)Math.Floor(lerpDist);
 			}
 			else 
 			{
 				// Reflect
-				lerpDist = (nfloat)Math.Abs(lerpDist) % 2.0f;
+				lerpDist = (float)Math.Abs(lerpDist) % 2.0f;
 				if (lerpDist > 1.0f) {
 					lerpDist = 2.0f - lerpDist;
 				}
@@ -391,9 +389,9 @@ namespace System.Drawing.Drawing2D
 					break;
 			}
 
-			nfloat prevPosition = 0;
-			nfloat dist = 0;
-			nfloat normalized = 0;
+			float prevPosition = 0;
+			float dist = 0;
+			float normalized = 0;
 
 			if (i == 0 || i == numPositions) {
 				if (i == numPositions)
@@ -415,7 +413,7 @@ namespace System.Drawing.Drawing2D
 //				                  prevPosition, dist, normalized, i, t);
 				for(ushort ctr = 0; ctr < 4; ctr++) {
 					
-					outData[ctr] = (nfloat)GeomUtilities.Lerp(shadingColors[0][ctr], 
+					outData[ctr] = (float)GeomUtilities.Lerp(shadingColors[0][ctr], 
 					                    shadingColors[1][ctr],
 					                    (float)normalized);
 				}
@@ -437,7 +435,7 @@ namespace System.Drawing.Drawing2D
 
 				for(ushort ctr = 0; ctr < 4; ctr++) {
 
-					outData[ctr] = (nfloat)GeomUtilities.Lerp(shadingColors[i-1][ctr], 
+					outData[ctr] = (float)GeomUtilities.Lerp(shadingColors[i-1][ctr], 
 					                    shadingColors[i][ctr],
 					                    (float)normalized);
 				}
@@ -451,7 +449,7 @@ namespace System.Drawing.Drawing2D
 				// it is really never mentioned that alpha is included.
 				for(ushort ctr = 0; ctr < 3; ctr++) {
 					
-					outData[ctr] = (nfloat)Math.Pow(outData[ctr], gamma);
+					outData[ctr] = (float)Math.Pow(outData[ctr], gamma);
 				}
 
 			}
@@ -486,7 +484,8 @@ namespace System.Drawing.Drawing2D
 			float[] cgColor;
 			for (int s = 0; s < size; s++)
 			{
-				cgColor = colorBlend.Colors[s].ElementsCGRGBA();
+				//NIE: cgColor = colorBlend.Colors[s].ElementsCGRGBA();
+				throw new NotImplementedException ();
 				//Console.WriteLine("shadingIndex {0} position {1} factor {2}",s, positions[s], factor);
 				shadingColors[s] = new float[4];
 
@@ -544,7 +543,8 @@ namespace System.Drawing.Drawing2D
 				factors = blend.Factors;
 				positions = blend.Positions;
 			}
-			
+
+			#if TODO
 			float[] sc = colors[0].ElementsCGRGBA();
 			float[] ec = colors[1].ElementsCGRGBA();
 			
@@ -560,12 +560,15 @@ namespace System.Drawing.Drawing2D
 					shadingColors[s][c] = GeomUtilities.Lerp (sc[c], ec[c], factor);
 				}
 			}
+			#else
+			throw new NotImplementedException ();
+			#endif
 		}
 
 		// http://developer.apple.com/library/mac/#documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_shadings/dq_shadings.html#//apple_ref/doc/uid/TP30001066-CH207-BBCECJBF
 		internal override void Setup (Graphics graphics, bool fill)
 		{
-
+			#if TODO
 			CGContext context = graphics.context;
 
 			// if fill is false then we are being called from a Pen stroke so
@@ -642,8 +645,9 @@ namespace System.Drawing.Drawing2D
 			graphics.LastPen = null;
 			// I am setting this to be used for Text coloring in DrawString
 			graphics.lastBrushColor = colors[0];
+			#endif
 		}
-
+		#if TODO
 		// Based on CreateRepetingGradientFunction from cairo-quartz-surface.c
 		CGFunction CyclicGradientFunction(SizeF regionSize,
 		                                     ref PointF start, ref PointF end)
@@ -735,7 +739,7 @@ namespace System.Drawing.Drawing2D
 
 			return cgf;
 		}
-
+		#endif
 	}
 }
 

@@ -9,12 +9,7 @@
 using System;
 using System.Drawing.Drawing2D;
 using System.ComponentModel;
-
-#if MONOMAC
-using CoreGraphics;
-#else
-using CoreGraphics;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing
 {
@@ -231,7 +226,7 @@ namespace System.Drawing
 
 		internal void Setup (Graphics graphics, bool fill)
 		{
-
+			#if TODO
 			CGContext context = graphics.context;
 
 			brush.Setup (graphics, fill);
@@ -297,11 +292,12 @@ namespace System.Drawing
 
 			changed = false;
 			graphics.LastPen = this;
+			#endif
 		}
 
-		nfloat[] setupMorseCode (float[] morse) 
+		float[] setupMorseCode (float[] morse) 
 		{
-			nfloat[] dashdots = new nfloat[morse.Length];
+			float[] dashdots = new float[morse.Length];
 			for (int x = 0; x < dashdots.Length; x++) 
 			{
 				dashdots[x] = morse[x] * width;

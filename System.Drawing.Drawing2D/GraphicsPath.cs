@@ -36,11 +36,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Diagnostics;
 using System.Linq;
-#if MONOMAC
-using CoreGraphics;
-#else
-using CoreGraphics;
-#endif
+using SkiaSharp;
 using ClipperLib;
 
 namespace System.Drawing.Drawing2D {
@@ -352,9 +348,11 @@ namespace System.Drawing.Drawing2D {
 			if (points.Length < 3)
 				throw new ArgumentException ("number of points");
 
+			#if TODO
 			var tangents = GeomUtilities.GetCurveTangents (CURVE_MIN_TERMS, points, points.Length, tension, CurveType.Close);
 
 			AppendCurve (points, tangents, 0, points.Length - 1, CurveType.Close);
+			#endif
 		}
 
 		public void AddCurve (Point [] points)
@@ -379,8 +377,10 @@ namespace System.Drawing.Drawing2D {
 			if (points.Length < 2)
 				throw new ArgumentException ("not enough points for polygon", "points");
 			
+			#if TODO
 			var tangents = GeomUtilities.GetCurveTangents (CURVE_MIN_TERMS, points, points.Length, tension, CurveType.Open);
 			AppendCurve (points, tangents, 0, points.Length-1, CurveType.Open);
+			#endif
 		}
 			
 		public void AddCurve (Point[] points, int offset, int numberOfSegments, float tension)
@@ -403,8 +403,10 @@ namespace System.Drawing.Drawing2D {
 			if (numberOfSegments >= points.Length - offset)
 				throw new ArgumentException ("offset");
 
+			#if TODO
 			var tangents = GeomUtilities.GetCurveTangents (CURVE_MIN_TERMS, points, count, tension, CurveType.Open);
 			AppendCurve (points, tangents, offset, numberOfSegments, CurveType.Open);
+			#endif
 		}
 			      
 		public void AddPolygon (Point [] points)
@@ -1148,6 +1150,7 @@ namespace System.Drawing.Drawing2D {
 
 		public bool IsOutlineVisible(PointF pt, Pen pen, Graphics graphics)
 		{
+#if TODO
 			var outlinePath = (GraphicsPath)Clone ();
 			if (graphics != null)
 				outlinePath.Transform (graphics.Transform);
@@ -1155,6 +1158,9 @@ namespace System.Drawing.Drawing2D {
 			outlinePath.Widen (pen);
 			var outlineRegion = new Region (outlinePath);
 			return outlineRegion.IsVisible (pt);
+#else
+			throw new NotImplementedException ();
+			#endif
 		}
 
 		public bool IsOutlineVisible(float x, float y, Pen pen)
@@ -1363,7 +1369,9 @@ namespace System.Drawing.Drawing2D {
 
 		public void Transform (Matrix matrix)
 		{
+			#if TODO
 			matrix.TransformPoints (points);
+			#endif
 		}
 
 		public void Widen(Pen pen)

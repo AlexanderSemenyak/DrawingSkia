@@ -67,7 +67,7 @@ namespace System.Drawing.Text
 		{
 			get { 
 				var families = new List<FontFamily> ();
-
+				#if TODO
 				var familyNames = new List<string>(nativeFontDescriptors.Keys);
 				// Lets sort the family names
 				familyNames.Sort ();
@@ -78,16 +78,23 @@ namespace System.Drawing.Text
 				}
 
 				return families.ToArray ();;               
+				#else
+
+				throw new NotImplementedException ();
+				#endif
 			}
 		}
 
 		// methods	
 		protected override void Dispose (bool disposing)
 		{
+			#if TODO
 			if (nativeFontCollection != null) {
 				nativeFontCollection = null;
 			}
-			
+			#else
+			throw new NotImplementedException ();
+			#endif
 			base.Dispose (disposing);
 		}		
 	}

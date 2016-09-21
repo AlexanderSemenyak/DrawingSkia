@@ -15,22 +15,12 @@ using System;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
-
-#if MONOMAC
-using CoreGraphics;
-using AppKit;
-using Foundation;
-using CoreText;
-#else
-using CoreGraphics;
-using UIKit;
-using Foundation;
-using CoreText;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing {
 
 	public sealed partial class Graphics : MarshalByRefObject, IDisposable {
+		#if TODO
 		internal CGContext context;
 		internal Pen LastPen;
 		internal Brush LastBrush;
@@ -201,7 +191,7 @@ namespace System.Drawing {
 		{
 			return ConversionHelpers.GraphicsUnitConversion(PageUnit, GraphicsUnit.Pixel, DpiY, y);
 		}
-
+		#endif
 		~Graphics ()
 		{
 			Dispose (false);
@@ -214,6 +204,7 @@ namespace System.Drawing {
 
 		internal void Dispose (bool disposing)
 		{
+			#if TODO
 			if (disposing){
 				if (context != null){
 					context.Dispose ();
@@ -221,8 +212,9 @@ namespace System.Drawing {
 
 				}
 			}
+			#endif
 		}
-
+#if TODO
 		// from: gdip_cairo_move_to, inlined to assume converts_unit=true, antialias=true
 		void MoveTo (float x, float y)
 		{
@@ -1562,7 +1554,7 @@ namespace System.Drawing {
 				FillBrush(brush);
 			}
 		}
-#if MONOTOUCH	
+#if MONOTOUCH
 		public void DrawIcon (Icon icon, Rectangle targetRect)
 		{
 			if (icon == null)
@@ -1589,7 +1581,7 @@ namespace System.Drawing {
 			//DrawImageUnscaled (icon.GetInternalBitmap (), targetRect);
 			throw new NotImplementedException ();
 		}
-#endif		
+#endif
 		public void DrawPie (Pen pen, Rectangle rect, float startAngle, float sweepAngle)
 		{
 			if (pen == null)
@@ -1824,6 +1816,6 @@ namespace System.Drawing {
 			transform.TransformPoints (pts);
 
 		}
-
+#endif
 	}
 }

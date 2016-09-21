@@ -8,11 +8,7 @@
 //
 using System;
 using System.Drawing.Drawing2D;
-#if MONOMAC
-using CoreGraphics;
-#else
-using CoreGraphics;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing 
 {
@@ -25,7 +21,10 @@ namespace System.Drawing
 		Matrix textureTransform = new Matrix();
 		WrapMode wrapMode = WrapMode.Tile;
 		bool changed = false;
-		
+		internal override void Setup (Graphics graphics, bool fill)
+		{
+			throw new NotImplementedException ();
+		}
 		public TextureBrush(Image bitmap) : this(bitmap, WrapMode.Tile)
 		{
 		}
@@ -98,13 +97,15 @@ namespace System.Drawing
 			{
 				throw new ArgumentNullException("matrix");
 			}
-			textureTransform.Multiply(matrix, order);
+			//textureTransform.Multiply(matrix, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 		
 		public void ResetTransform()
 		{
-			textureTransform.Reset();
+			//textureTransform.Reset();
+			throw new NotImplementedException ();
 			changed = true;
 		}
 		
@@ -115,7 +116,8 @@ namespace System.Drawing
 		
 		public void RotateTransform(float angle, MatrixOrder order)
 		{
-			textureTransform.Rotate(angle, order);
+			//textureTransform.Rotate(angle, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 		
@@ -126,7 +128,8 @@ namespace System.Drawing
 		
 		public void ScaleTransform(float sx, float sy, MatrixOrder order)
 		{
-			textureTransform.Scale(sx, sy, order);
+			//textureTransform.Scale(sx, sy, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 		
@@ -137,7 +140,8 @@ namespace System.Drawing
 		
 		public void TranslateTransform(float dx, float dy, MatrixOrder order)
 		{
-			textureTransform.Translate(dx, dy, order);
+			//textureTransform.Translate(dx, dy, order);
+			throw new NotImplementedException ();
 			changed = true;
 		}
 		
@@ -162,7 +166,8 @@ namespace System.Drawing
 				{
 					throw new ArgumentNullException("value");
 				}
-				textureTransform = value.Clone();
+				//textureTransform = value.Clone();
+				throw new NotImplementedException ();
 				changed = true;
 			}
 		}
@@ -183,6 +188,7 @@ namespace System.Drawing
 			}
 		}
 
+		#if TODO
 		// test draw pattern
 		protected void DrawTexture (CGContext context)
 		{
@@ -318,6 +324,6 @@ namespace System.Drawing
 			// I am setting this to be used for Text coloring in DrawString
 			//graphics.lastBrushColor = foreColor;
 		}
-		
+		#endif
 	}
 }

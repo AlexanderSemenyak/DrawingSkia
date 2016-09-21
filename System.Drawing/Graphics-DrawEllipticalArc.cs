@@ -1,15 +1,8 @@
+#define MAISONABE
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-
-#if MONOMAC
-using CoreGraphics;
-using AppKit;
-using Foundation;
-#else
-using CoreGraphics;
-using UIKit;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing
 {
@@ -430,7 +423,7 @@ namespace System.Drawing
 		*/
 		public void drawEllipticalArcToContext(int degree, double threshold)
 		{
-			
+#if TODO
 			// find the number of Bézier curves needed
 			bool found = false;
 			int n = 1;
@@ -522,14 +515,17 @@ namespace System.Drawing
 			{
 				context.ClosePath();
 			}
-			
+#else
+			throw new NotImplementedException ();
+			#endif
 		}
 #endif
 
+		#if TODO
 		/*
-         * Based on the algorithm described in
-         *      http://www.stillhq.com/ctpfaq/2002/03/c1088.html#AEN1212
-         */
+         	 * Based on the algorithm described in
+         	 *      http://www.stillhq.com/ctpfaq/2002/03/c1088.html#AEN1212
+         	 */
 		static void
 			make_arc(CGContext graphics, bool start, float x, float y, float width,
 			         float height, float startAngle, float endAngle, bool antialiasing, bool isPieSlice)
@@ -670,6 +666,6 @@ namespace System.Drawing
 			}
 
 		}
-
+		#endif
 	}
 }

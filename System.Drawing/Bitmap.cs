@@ -41,27 +41,26 @@ using System.Runtime.Serialization;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Collections.Generic;
-
-#if MONOMAC
-using CoreGraphics;
-using Foundation;
-using AppKit;
-using ImageIO;
-#else
-using CoreGraphics;
-using UIKit;
-using Foundation;
-using ImageIO;
-using MobileCoreServices;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing {
-	
+
 	[Serializable]
-	public sealed class Bitmap : Image {
+	public sealed class Bitmap : Image
+	{
 		// if null, we created the bitmap in memory, otherwise, the backing file.
 		internal IntPtr bitmapBlock;
-
+		public Bitmap (string filename)
+		{
+			throw new NotImplementedException ();
+		}
+		public Bitmap (Stream stream, bool useIcm) : this ("") { }
+		public Bitmap (int width, int height) : this ("") { }
+		public Bitmap (int width, int height, PixelFormat format) : this ("") { }
+		public Bitmap (Image image) : this ("") { }
+		public Bitmap (Image original, int width, int height) : this ("") { }
+		public Color GetPixel (int x, int y) { throw new NotImplementedException (); }
+		#if TODO
 		internal CGBitmapContext cachedContext;
 
 		// we will default this to one for now until we get some tests for other image types
@@ -1359,6 +1358,6 @@ namespace System.Drawing {
 			}
 
 		}
-
+#endif
 	}
 }

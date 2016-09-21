@@ -33,12 +33,7 @@
 
 using System.Drawing.Drawing2D;
 using System.Collections.Generic;
-
-#if MONOMAC
-using CoreGraphics;
-#else
-using CoreGraphics;
-#endif
+using SkiaSharp;
 
 // Polygon Clipping Library
 using ClipperLib;
@@ -53,7 +48,7 @@ namespace System.Drawing
 
 	public sealed class Region : MarshalByRefObject, IDisposable 
 	{
-
+		
 		const PolyFillType SUBJ_FILL_TYPE = PolyFillType.pftNonZero;
 		const PolyFillType CLIP_FILL_TYPE = PolyFillType.pftNonZero;
 		const bool EVEN_ODD_FILL = false;
@@ -61,10 +56,10 @@ namespace System.Drawing
 		internal static RectangleF infinite = new RectangleF(-4194304, -4194304, 8388608, 8388608);
 		internal object regionObject; 
 		internal List<RegionEntry> regionList = new List<RegionEntry>();
-		internal CGPath regionPath;
 		internal RectangleF regionBounds;
-
-
+#if TODO
+				internal CGPath regionPath;
+		#endif
 		//Here we are scaling all coordinates up by 100 when they're passed to Clipper 
 		//via Polygon (or Polygons) objects because Clipper no longer accepts floating  
 		//point values. Likewise when Clipper returns a solution in a Polygons object, 
@@ -152,12 +147,13 @@ namespace System.Drawing
 
 			regionList.Add (new RegionEntry (RegionType.Infinity, infinite, path));
 
+			#if TODO
 			regionPath = new CGPath ();
 			regionPath.MoveToPoint (infinite.Left, infinite.Top);
 			regionPath.AddLineToPoint (infinite.Right, infinite.Top);
 			regionPath.AddLineToPoint (infinite.Right, infinite.Bottom);
 			regionPath.AddLineToPoint (infinite.Left, infinite.Bottom);
-
+			#endif
 			regionBounds = infinite;
 		}
 		
@@ -171,12 +167,13 @@ namespace System.Drawing
 			var path = RectangleToPath (rect);
 			solution.Add (path);
 			regionList.Add (new RegionEntry (RegionType.Rectangle, rect, path));
+			#if TODO
 			regionPath = new CGPath ();
 			regionPath.MoveToPoint (rect.Left, rect.Top);
 			regionPath.AddLineToPoint (rect.Right, rect.Top);
 			regionPath.AddLineToPoint (rect.Right, rect.Bottom);
 			regionPath.AddLineToPoint (rect.Left, rect.Bottom);
-
+			#endif
 			regionBounds = rect;
 		}
 
@@ -184,6 +181,7 @@ namespace System.Drawing
 		{
 			var clonePath = (GraphicsPath)path.Clone(); 
 			regionObject = clonePath;
+			#if TODO
 			regionPath = new CGPath ();
 
 			PlotPath (clonePath);
@@ -193,6 +191,7 @@ namespace System.Drawing
 			solution.Add (flatPath);
 			regionList.Add (new RegionEntry (RegionType.Path, clonePath, flatPath));
 			regionBounds = regionPath.BoundingBox.ToRectangleF ();
+			#endif
 		}
 
 		internal static Path PointFArrayToIntArray(PointF[] points, float scale)
@@ -224,6 +223,7 @@ namespace System.Drawing
 			var types = path.PathTypes;
 			int bidx = 0;
 
+			#if TODO
 			for (int i = 0; i < points.Length; i++){
 				var point = points [i];
 				var type = (PathPointType) types [i];
@@ -264,6 +264,7 @@ namespace System.Drawing
 				if ((type & PathPointType.CloseSubpath) != 0)
 					regionPath.CloseSubpath ();
 			}
+			#endif
 		}
 
 
@@ -281,20 +282,22 @@ namespace System.Drawing
 
 			throw new NotImplementedException ();
 		}
-		
+
 		public Region Clone ()
 		{
 
 
 			var region = new Region ();
 			region.solution = this.solution;
+			#if TODO
 			region.regionPath = this.regionPath;
+			#endif
 			region.regionList = this.regionList;
 			region.regionObject = this.regionObject;
 			region.regionBounds = this.regionBounds;
 
 			return region;
-		}
+		}	
 
 		public void Dispose ()
 		{
@@ -305,7 +308,7 @@ namespace System.Drawing
 		void Dispose (bool disposing)
 		{
 		}
-		
+#if TODO
 		public RectangleF GetBounds (Graphics g)
 		{
 			if (g == null)
@@ -639,7 +642,10 @@ namespace System.Drawing
 				return regionBounds.Equals (infinite);
 			}
 		}
-
+#endif
+		public bool IsVisible (Point point) { throw new NotImplementedException (); }
+		public bool IsVisible (PointF point) { throw new NotImplementedException (); }
+		#if TODO
 		public bool IsVisible(Point point)
 		{
 			return IsVisible ((PointF)point);
@@ -692,7 +698,7 @@ namespace System.Drawing
 				return regionBounds.Equals (RectangleF.Empty);
 			}
 		}
-
+		#endif
 		static Path RectangleToPath (RectangleF rect)
 		{
 			Path path = new Path ();
@@ -710,6 +716,7 @@ namespace System.Drawing
 		{
 			return new PointF (point.X / scale, point.Y / scale);
 		}
+
 	}
 
 }

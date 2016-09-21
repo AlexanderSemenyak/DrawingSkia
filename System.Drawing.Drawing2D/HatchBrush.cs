@@ -7,11 +7,7 @@
 // Copyright 2012
 //
 using System;
-#if MONOMAC
-using CoreGraphics;
-#else
-using CoreGraphics;
-#endif
+using SkiaSharp;
 
 namespace System.Drawing.Drawing2D 
 {
@@ -23,7 +19,11 @@ namespace System.Drawing.Drawing2D
 		Color backColor;
 		Color foreColor;
 		HatchStyle hatchStyle;
-		
+		internal override void Setup (Graphics graphics, bool fill)
+		{
+			throw new NotImplementedException ();
+		}
+
 		public HatchBrush (HatchStyle hatchStyle, Color foreColor)
 			: this (hatchStyle, foreColor, Color.Black)
 		{
@@ -144,6 +144,7 @@ namespace System.Drawing.Drawing2D
 			return hatches_const[(int)hbr][2];
 		}
 
+		#if TODO
 		void drawBackground(CGContext context, Color color, float width, float height) 
 		{
 			context.SetFillColor(color.ToCGColor());
@@ -1357,5 +1358,6 @@ namespace System.Drawing.Drawing2D
 			// I am setting this to be used for Text coloring in DrawString
 			graphics.lastBrushColor = foreColor;
 		}
+	#endif
 	}
 }

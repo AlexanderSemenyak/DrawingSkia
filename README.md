@@ -1,6 +1,3 @@
-This module contains an implementation of the System.Drawing API using
-Apple's CoreGraphics engine.    With the exception of a couple of APIs
-to integrate into the native platform, the API is identical to what
-developers are used to.
+This module is a fork of http://github.com/mono/sysdrawing-coregraphics that
+is attempting to replace CoreGraphcis with SkiaSharp.
 
-This works with both iOS and OSX.
